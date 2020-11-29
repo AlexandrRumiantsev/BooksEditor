@@ -15,5 +15,22 @@ export const books = [
         family: ``
       },
     ]
-  },  
+  },
+  {
+    title: `Книга 2`,
+    autorList: [
+      {
+        name: `Пушкин`,
+        family: ``
+      },
+      {
+        name: `Пушкин`,
+        family: ``
+      },
+      {
+        name: `Пушкин`,
+        family: ``
+      },
+    ]
+  }  
 ];

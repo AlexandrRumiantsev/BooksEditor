@@ -1,15 +1,17 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {
-  Link
-} from "react-router-dom";
 
+import BookList from "../book-list/book-list";
 
-const MainScreen = (props) => {
-    console.log(props);
+const MainScreen = ({books}) => {
     return  (
-        <h1>MainScreen</h1>
+      <React.Fragment>
+          <h1>MainScreen</h1>
+          <BookList
+            books={books}
+          />
+      </React.Fragment>
     )
 }
 
