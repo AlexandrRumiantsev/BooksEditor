@@ -11,9 +11,18 @@ import {createLocalStorage} from "./serveces/local-storage/local-storage";
 import rootReducer from "./store/reducers/root-reducer";
 
 
+const localStorageServices = createLocalStorage(
+  () => store.dispatch()
+);
+
+import {redirect} from "./store/middlewares/redirect";
 
 const store = createStore(
-  rootReducer
+  rootReducer,
+  composeWithDevTools(
+    applyMiddleware(thunk.withExtraArgument(localStorageServices)),
+    applyMiddleware(redirect)
+  )
 );
 
 Promise.all([

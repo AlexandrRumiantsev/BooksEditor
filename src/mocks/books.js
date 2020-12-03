@@ -1,5 +1,6 @@
 export const books = [
   {
+    id: `1`,
     title: `Книга 1`,
     autorList: [
       {
@@ -17,6 +18,7 @@ export const books = [
     ]
   },
   {
+    id: `2`,
     title: `Книга 2`,
     autorList: [
       {
