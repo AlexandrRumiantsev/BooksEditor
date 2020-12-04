@@ -10,7 +10,6 @@ import EditScreen from "../edit-screen/edit-screen";
 
 import {indexedDBCreater} from '../../serveces/Indexed-db/Indexed-db-creater';
 
-import {Test} from "./test";
 
 const App = () => {
   return (
@@ -24,8 +23,8 @@ const App = () => {
       />
       <Route exact
         path={AppRoute.EDIT_BOOK}
-        render={({history}) => (
-          <EditScreen />
+        render={({history, match}) => (
+          <EditScreen match={match}/>
         )}
       />
       <Route

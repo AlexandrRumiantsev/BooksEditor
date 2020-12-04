@@ -1,12 +1,12 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {
-  Link
-} from "react-router-dom";
+
+import {getItemBook} from "../../store/selectors/get-book-item/get-book-item";
 
 
-const EditScreen = () => {
+const EditScreen = ({book}) => {
+    console.log(book);
     return  (
         <h1>EditScreen</h1>
     )
@@ -14,7 +14,13 @@ const EditScreen = () => {
 
 
 const mapDispatchToProps = (dispatch) => ({});
-const mapStateToProps = (state) => {};
+
+const mapStateToProps = (state, prop) => {
+  return {
+    book: getItemBook({state, prop})
+  };
+};
+
 
 export {EditScreen};
 export default connect(mapStateToProps, mapDispatchToProps)(EditScreen);

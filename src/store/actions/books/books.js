@@ -46,6 +46,7 @@ const createSendObject = async (form) => {
       return books
 }
 export const addBook = (form) => (dispatch, _getState, localStorage) => {
+    console.log(form);
     return createSendObject(form).then(books => {
         dispatch({
             type: `ADD_BOOK`,
