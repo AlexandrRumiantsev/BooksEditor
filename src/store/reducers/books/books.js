@@ -10,7 +10,7 @@ export default function Books(state = stateBooks, action) {
     switch (action.type) {
         case `LOAD_BOOKS`:
             return extend(state, {
-                list: JSON.parse(action.payload)
+                list: action.payload ? JSON.parse(action.payload) : ``
             });
         case `DEL_BOOK`:
             return extend(state, {

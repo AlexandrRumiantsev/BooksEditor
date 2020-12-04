@@ -1,5 +1,6 @@
 export const AppRoute = {
     ROOT: '/',
-    EDIT_BOOK: '/edit',
-    ADD_BOOK: '/add'
+    EDIT_BOOK: '/edit/:id',
+    ADD_BOOK: '/add',
+    TEST: '/test'
 }

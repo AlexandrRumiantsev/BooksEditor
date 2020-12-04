@@ -16,7 +16,7 @@ const MainScreen = ({books, delBookDispatch}) => {
             <h1>
               MainScreen
             </h1>
-            <Link to='/add'> ADD </Link>
+            <Link to={`/add`}> ADD </Link>
           </header>
           <BookList
             books={books}

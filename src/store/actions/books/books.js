@@ -1,5 +1,6 @@
 import {selectDelBook} from '../../selectors/del-book/del-book';
 import {APIRoute} from '../../const';
+import {indexedDBCreater} from '../../../serveces/Indexed-db/Indexed-db-creater';
 
 export const createBooks = () => (dispatch, _getState, localStorage) => {
     console.log(localStorage);
@@ -13,7 +14,7 @@ const redirectToRoute = (url) => (
 );
 
 const createSendObject = async (form) => {
-    let books = JSON.parse(localStorage.books);
+    let books = localStorage.books ? JSON.parse(localStorage.books) : [];
 
     const bookObj = {
         id: `22343242`,
@@ -31,7 +32,8 @@ const createSendObject = async (form) => {
             name: `Пушкин`,
             family: ``
           },
-        ]
+        ],
+        img: form.get('FILE')
       } 
 
       books.push(bookObj);
@@ -39,6 +41,8 @@ const createSendObject = async (form) => {
         `books`, 
         JSON.stringify(books)
       );
+
+
       return books
 }
 export const addBook = (form) => (dispatch, _getState, localStorage) => {

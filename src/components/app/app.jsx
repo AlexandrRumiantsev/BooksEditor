@@ -8,6 +8,10 @@ import MainScreen from "../main-screen/main-screen";
 import AddScreen from "../add-screen/add-screen";
 import EditScreen from "../edit-screen/edit-screen";
 
+import {indexedDBCreater} from '../../serveces/Indexed-db/Indexed-db-creater';
+
+import {Test} from "./test";
+
 const App = () => {
   return (
     <BrowserRouter history={browserHistory}>
@@ -31,6 +35,15 @@ const App = () => {
           return (
             <AddScreen />
           );
+        }}
+      />
+      <Route
+        exact
+        path={AppRoute.TEST}
+        render={({history}) => {
+          indexedDBCreater(
+            Test
+          )
         }}
       />
     </Switch>
