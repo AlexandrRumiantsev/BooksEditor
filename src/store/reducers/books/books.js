@@ -20,6 +20,10 @@ export default function Books(state = stateBooks, action) {
             return extend(state, {
                 list: action.payload.books,
             });
+        case `EDIT_BOOK`:
+            return extend(state, {
+                list: action.payload.books,
+            });    
 
     }
     return state;

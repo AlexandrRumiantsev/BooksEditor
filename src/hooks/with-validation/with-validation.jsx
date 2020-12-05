@@ -44,6 +44,7 @@ const withValidation = (ComponentOutside) => {
         const validationForm = (form) => {
           const errorList = [];
           const formData = new FormData(form.current);
+
           /*
           Список условий:
             - заголовок (обязательный параметр, не более 30 символов)
@@ -65,15 +66,17 @@ const withValidation = (ComponentOutside) => {
           }
           if(Number(authorsCount.length) === 0){
             errorList.push(ERROR_MESSAGE.AUTOR_COUNT_ERROR);
-          }else{
-            for(let i = 0; i < authorsCount.length; i++){
-              if(formData.get(`AUTHOR_NAME[${i}]`).length > 20){
+          //}else{
+            formData.getAll('AUTHOR_NAME').map(function(item, i){
+              if(item.length > 20){
                 errorList.push(ERROR_MESSAGE.AUTOR_NAME_ERROR);
               }
-              if(formData.get(`AUTHOR_FAMILY[${i}]`).length > 20){
+            })
+            formData.getAll('AUTHOR_FAMILY').map(function(item, i){
+              if(item.length > 20){
                 errorList.push(ERROR_MESSAGE.AUTHOR_FAMILY_ERROR);
               }
-            }
+            })
           }
           
           if(Number(formData.get(`COUNT_PAGE`)) === 0 || Number(formData.get(`COUNT_PAGE`)) > 10000 ){
@@ -157,6 +160,7 @@ const withValidation = (ComponentOutside) => {
         }
    
         return  <ComponentOutside 
+                    {...props}
                     handleFiles={handleFiles}
                     handleClickForm={handleClickForm}
                     errors={errors}

@@ -10,9 +10,11 @@ const BookForm = (props) => {
         setCount,
         authorsCount,
         handleFiles,
-        file
+        file,
+        book
     } = props;
-
+    let autorList = book ? book.autorList : authorsCount;
+    const img = book ? file ? file : book.img : file;
     return  (
      <div className='author'>
         <div className='author__error'>
@@ -24,16 +26,17 @@ const BookForm = (props) => {
         </div>
         <form ref={formRef} onClick={(e)=>handleClickForm(e,{setCount, authorsCount})}>
           <div>
-            <input name='TITLE' type='text' placeholder='заголовок'></input>
+            <input name='ID' type='hidden' defaultValue={book ? book.id : ``}></input>
+            <input name='TITLE' type='text' placeholder='заголовок' defaultValue={book ? book.title : ``}></input>
           </div>
           <div>
             список авторов
             <div className='author__list'>
-                {authorsCount.map(index => (
-                  <li key={index}>
+              {autorList.map((index, key) => (
+                  <li key={key}>
                     <div className='author-item'>    
-                      <input name={`AUTHOR_NAME[${index}]`} placeholder='Имя'></input>
-                      <input name={`AUTHOR_FAMILY[${index}]`} placeholder='Фамилия'></input>
+                      <input name={`AUTHOR_NAME`} placeholder='Имя' defaultValue={book ? autorList[key].name : ``}></input>
+                      <input name={`AUTHOR_FAMILY`} placeholder='Фамилия' defaultValue={book ? autorList[key].family : ``}></input>
                     </div>
                   </li>
                 ))}
@@ -41,18 +44,18 @@ const BookForm = (props) => {
                 <input data-action="removeAuthor" type='button' value='-'></input>
             </div>
           </div>
-          <p>Кол-во страниц: <input name='COUNT_PAGE' type='number'></input></p>
-          <p>Название издательства: <input name='PUBLISHING' placeholder='ООО "Рога и Копыта"' ></input></p>
-          <p>Год публикации: <input name='AGE' type='number'></input></p>
-          <p>Дата выхода в тираж: <input name='DATE' type='date'></input></p>   
-          <p>ISBN: <input name='ISBN' placeholder='ISBN'></input></p>
+          <p>Кол-во страниц: <input defaultValue={book ? book.title : ``} name='COUNT_PAGE' type='number'></input></p>
+          <p>Название издательства: <input defaultValue={book ? book.publishing : ``} name='PUBLISHING' placeholder='ООО "Рога и Копыта"' ></input></p>
+          <p>Год публикации: <input name='AGE'  defaultValue={book ? book.age : ``} type='number'></input></p>
+          <p>Дата выхода в тираж: <input name='DATE' defaultValue={book ? book.date : ``} type='date'></input></p>   
+          <p>ISBN: <input name='ISBN' placeholder='ISBN' defaultValue={book ? book.isnb : ``}></input></p>
           <button data-action="saveBook">Добавить</button>
         </form>
         <ReactFileReader fileTypes={[".jpeg",".jpg", ".png"]} base64={true} handleFiles={handleFiles}>
           <button className="btn">Upload</button>
         </ReactFileReader>
-         { file ? 
-          <img src={file} />
+         { img ? 
+          <img src={img} />
           :
           null
         } 

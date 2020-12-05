@@ -13,11 +13,18 @@ const redirectToRoute = (url) => (
     }
 );
 
+
 const createSendObject = async (form) => {
     let books = localStorage.books ? JSON.parse(localStorage.books) : [];
-
+    let id = () => {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+          });
+    }
+    console.log(books);
     const bookObj = {
-        id: `22343242`,
+        id: id(),
         title: form.get('TITLE'),
         autorList: [
           {
@@ -45,8 +52,52 @@ const createSendObject = async (form) => {
 
       return books
 }
+
+const createSendObjectTwo = async (form) => {
+
+    let r = JSON.parse(localStorage.books).filter(element => {
+        if(element.id != form.get('ID')){
+            return element;
+        }else return ''; 
+    });
+
+
+
+    let boObj = {
+        id: form.get('ID'),
+        title: form.get('TITLE'),
+        autorList: [
+          {
+            name: `Пушкин`,
+            family: ``
+          },
+          {
+            name: `Пушкин`,
+            family: ``
+          },
+          {
+            name: `Пушкин`,
+            family: ``
+          },
+        ],
+        img: form.get('FILE')
+      } 
+
+        r.push(boObj);
+
+      localStorage.removeItem(
+        `books`
+      );
+
+      localStorage.setItem(
+        `books`, 
+        JSON.stringify(r)
+      ); 
+
+      return r;
+}
+
 export const addBook = (form) => (dispatch, _getState, localStorage) => {
-    console.log(form);
     return createSendObject(form).then(books => {
         dispatch({
             type: `ADD_BOOK`,
@@ -62,6 +113,27 @@ export const addBook = (form) => (dispatch, _getState, localStorage) => {
     ))
     
 
+}
+
+export const editBook = (form) => (dispatch, _getState, localStorage) => {
+
+    return createSendObjectTwo(form).then(books => {
+        dispatch({
+            type: `EDIT_BOOK`,
+            payload: {
+                books
+            }
+        })
+        return books;
+    }).then(response => (
+        dispatch(redirectToRoute(
+            APIRoute.REDIRECT_TO_ROUTE
+        ))
+    ))
+
+     
+    
+    
 }
 
 
