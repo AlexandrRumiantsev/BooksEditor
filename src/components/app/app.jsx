@@ -23,14 +23,14 @@ const App = () => {
       />
       <Route exact
         path={AppRoute.EDIT_BOOK}
-        render={({history, match}) => (
+        render={({match}) => (
           <EditScreen match={match}/>
         )}
       />
       <Route
         exact
         path={AppRoute.ADD_BOOK}
-        render={({history}) => {
+        render={() => {
           return (
             <AddScreen />
           );
@@ -39,7 +39,7 @@ const App = () => {
       <Route
         exact
         path={AppRoute.TEST}
-        render={({history}) => {
+        render={() => {
           indexedDBCreater(
             Test
           )

@@ -1,4 +1,4 @@
-import React,  { useState, useEffect, usePrevious } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {
@@ -13,10 +13,6 @@ import Sorting from "../sorting/sorting";
 
 const MainScreen = ({books, delBookDispatch, changeFilterDispatch, filter}) => {
 
-    useEffect((prop) => {
-      console.log(prop);
-      console.log(filter);
-    });
 
     return  (
       <React.Fragment>
@@ -35,7 +31,6 @@ const MainScreen = ({books, delBookDispatch, changeFilterDispatch, filter}) => {
     )
 }
 
-
 const mapDispatchToProps = (dispatch) => ({
 
   delBookDispatch(id) {
@@ -52,15 +47,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state, props) => {
-  //console.log(props);
-  //selectFilteredBooks(state);
   return {
     books: selectFilteredBooks(state),
     filter: state.BOOKS.filter
   }
 }
   
-
-
 export {MainScreen};
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
