@@ -1,6 +1,5 @@
 import {selectDelBook} from '../../selectors/del-book/del-book';
 import {APIRoute} from '../../const';
-import {indexedDBCreater} from '../../../serveces/Indexed-db/Indexed-db-creater';
 import {createSendObjectBook} from '../../../helpers/create-send-object-book';
 
 export const createBooks = () => (dispatch, _getState, localStorage) => {
@@ -14,13 +13,8 @@ const redirectToRoute = (url) => (
     }
 );
 
-
-
-
-
-
 export const addBook = (form) => (dispatch, _getState, localStorage) => {
-    console.log(createSendObjectBook);
+
     return createSendObjectBook(form, `ADD`).then(books => {
         dispatch({
             type: `ADD_BOOK`,
@@ -58,8 +52,6 @@ export const editBook = (form) => (dispatch, _getState, localStorage) => {
     
     
 }
-
-
 
 
 

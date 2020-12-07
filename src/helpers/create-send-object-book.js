@@ -1,3 +1,4 @@
+ 
 export const createSendObjectBook = async (form, type) => {
     switch(type){
         case 'EDIT':
@@ -7,87 +8,66 @@ export const createSendObjectBook = async (form, type) => {
     }
 }
 
-
-const createAddObject = async (form) => {
-    let books = localStorage.books ? JSON.parse(localStorage.books) : [];
-    let id = () => {
+const id = () => {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
           });
     }
-    console.log(books);
-    const bookObj = {
-        id: id(),
-        title: form.get('TITLE'),
-        autorList: [
-          {
-            name: `Пушкин`,
-            family: ``
-          },
-          {
-            name: `Пушкин`,
-            family: ``
-          },
-          {
-            name: `Пушкин`,
-            family: ``
-          },
-        ],
-        img: form.get('FILE')
-      } 
 
-      books.push(bookObj);
-      localStorage.setItem(
+const createBook = (form, type) => {
+    const autorList = [];
+    form.getAll('AUTHOR_NAME[]').map(function(item, i){
+        const obj = {
+            name: item,
+            family: form.getAll('AUTHOR_FAMILY[]')[i]
+        }
+        autorList.push(obj)
+    })
+    return {
+        id: type == 'EDIT' ? form.get('ID') : id(),
+        title: form.get('TITLE'),
+        autorList,
+        img: form.get('FILE'),
+        count: form.get('COUNT_PAGE'),
+        publishing: form.get('PUBLISHING'),
+        age: form.get('AGE'),
+        date: form.get('DATE'),
+        isbn: form.get('ISBN'),
+      } 
+}
+
+const createAddObject = async (form) => {
+    let books = localStorage.books ? JSON.parse(localStorage.books) : [];
+    books.push(
+        createBook(form)
+    );
+    localStorage.setItem(
         `books`, 
         JSON.stringify(books)
-      );
-
-
-      return books
+    );
+    return books
 }
 
 
 const createEditObject = async (form) => {
-
-    let r = JSON.parse(localStorage.books).filter(element => {
+    let booksEdit = JSON.parse(localStorage.books).filter(element => {
         if(element.id != form.get('ID')){
             return element;
         }else return ''; 
-    });
-
-
-
-    let boObj = {
-        id: form.get('ID'),
-        title: form.get('TITLE'),
-        autorList: [
-          {
-            name: `Пушкин`,
-            family: ``
-          },
-          {
-            name: `Пушкин`,
-            family: ``
-          },
-          {
-            name: `Пушкин`,
-            family: ``
-          },
-        ],
-        img: form.get('FILE')
-      } 
-
-        r.push(boObj);
-
-      localStorage.removeItem(
+    })
+    
+    booksEdit.push(
+        createBook(form , 'edit')
+    );
+    
+    localStorage.removeItem(
         `books`
-      );
-
-      localStorage.setItem(
+    );
+    console.log(booksEdit);
+    localStorage.setItem(
         `books`, 
-        JSON.stringify(r)
-      ); 
-
-      return r;
+        JSON.stringify(booksEdit)
+    ); 
+    return booksEdit;
 }

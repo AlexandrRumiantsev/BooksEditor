@@ -17,8 +17,8 @@ const App = () => {
     <Switch>
       <Route exact
         path={AppRoute.ROOT}
-        render={({history}) => (
-          <MainScreen />
+        render={() => (
+          <MainScreen/>
         )}
       />
       <Route exact

@@ -33,12 +33,22 @@ const ERROR_MESSAGE = {
 const withValidation = (ComponentOutside) => {
     const WithValidation = (props) => {
    
-        const [authorsCount, setCount] = useState([]);
-        const [file, setFile] = useState(null);
+        
+       
         const [errors, setErrors] = useState([]);
         const formRef = React.createRef();
         
-        const {addBook} = props; 
+        const {addBook, book} = props; 
+        const newStateCount = [];
+
+        if(book){
+          book.autorList.map(function(item, i){
+            newStateCount.push(i);
+          })
+        }
+        
+        const [authorsCount, setCount] = book ? useState(newStateCount) : useState([])
+        const [file, setFile] = book ? useState(book.img) : useState(null);
 
 
         const validationForm = (form) => {
@@ -66,7 +76,7 @@ const withValidation = (ComponentOutside) => {
           }
           if(Number(authorsCount.length) === 0){
             errorList.push(ERROR_MESSAGE.AUTOR_COUNT_ERROR);
-          //}else{
+           }else{
             formData.getAll('AUTHOR_NAME').map(function(item, i){
               if(item.length > 20){
                 errorList.push(ERROR_MESSAGE.AUTOR_NAME_ERROR);
@@ -92,7 +102,7 @@ const withValidation = (ComponentOutside) => {
           }
      
           if(
-            formData.get(`DATE`) && new Date(ERROR_MESSAGE.MIN_DATE_TIR) < new Date(formData.get(`DATE`))
+            formData.get(`DATE`) && new Date(ERROR_MESSAGE.MIN_DATE_TIR) > new Date(formData.get(`DATE`))
           ){
             errorList.push(ERROR_MESSAGE.MIN_DATE_TIR_TEXT);
           }
