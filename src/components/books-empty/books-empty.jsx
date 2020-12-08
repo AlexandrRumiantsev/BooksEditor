@@ -3,7 +3,7 @@ import React from "react";
 const BookEmpty = () => {
     return  (
         <article>
-            EMPTY
+            Не добавленно ни одной книги
         </article>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-пше ыефегы
+
 const Sorting = ({changeFilter}) => {
     function handleChange(e) {
         e.preventDefault();
@@ -22,15 +22,19 @@ const Sorting = ({changeFilter}) => {
 
     return (
         <select onChange={handleChange}>
-            <option value="">--Please choose an option--</option>
-            <option selected={selected == 'alphabet' ? selected : ''} data-action="sort-title">
+            <option defaultValue="">--Выберете фильтр--</option>
+            <option defaultValue={selected == 'alphabet' ? selected : ''} data-action="sort-title">
                 По загаловку (В алфавитном порядке)
             </option>
-            <option selected={selected == 'age' ? selected : ''} data-action="sort-age">
+            <option defaultValue={selected == 'age' ? selected : ''} data-action="sort-age">
                 По году публикации (От самого позднего)
             </option>
         </select>
     )
 }
+
+Sorting.propTypes = {
+    changeFilter: PropTypes.func
+};
 
 export default Sorting;

@@ -186,4 +186,9 @@ const withValidation = (ComponentOutside) => {
     return WithValidation;
 };
 
+withValidation.propTypes = {
+  delBook: PropTypes.func,
+  book: PropTypes.object,
+};
+
 export default withValidation;

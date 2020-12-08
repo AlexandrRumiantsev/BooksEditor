@@ -1,6 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import BookItem from "../book-item/book-item";
 import BookEmpty from "../books-empty/books-empty";
+
+import {bookItem} from "../../shapes/book-item";
 
 const BookList = ({books, delBook}) => {
     
@@ -18,4 +22,10 @@ const BookList = ({books, delBook}) => {
     )
 }
 
+BookItem.propTypes = {
+    delBook: PropTypes.func,
+    books: PropTypes.arrayOf(
+        bookItem
+    )
+};
 export default BookList;

@@ -16,7 +16,6 @@ const AddScreen = ({addBookDispatch}) => {
 
 const mapDispatchToProps = (dispatch) => ({
   addBookDispatch(form) {
-    console.log(form)
     dispatch(addBook(form));
   }
 });
@@ -24,6 +23,10 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => {
   return {}
 }
+
+AddScreen.propTypes = {
+  addBookDispatch: PropTypes.func
+};
 
 export {AddScreen};
 export default connect(mapStateToProps, mapDispatchToProps)(AddScreen);

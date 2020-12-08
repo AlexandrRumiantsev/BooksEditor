@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
 import ReactFileReader from 'react-file-reader';
 
 const BookForm = (props) => {
+
     const {
         errors,
         formRef,
@@ -14,9 +15,6 @@ const BookForm = (props) => {
         book
     } = props;
 
-    useEffect(() => {
-      console.log('useEffect');
-    }, [authorsCount]);
 
     let autorList = [];
 
@@ -28,6 +26,7 @@ const BookForm = (props) => {
     const img = book ? file ? file : book.img : file;
     return  (
      <div className='author'>
+       <section>
         <div className='author__error'>
           {
             errors.map(function(item, i){
@@ -46,8 +45,18 @@ const BookForm = (props) => {
               {authorsCount.map((index, key) => (
                   <li key={key}>
                     <div className='author-item'>    
-                      <input name='AUTHOR_NAME[]' placeholder='Имя' defaultValue={book ? autorList[key] ? autorList[key].name : `` : ``}></input>
-                      <input name='AUTHOR_FAMILY[]' placeholder='Фамилия' defaultValue={book ? autorList[key] ? autorList[key].family : `` : ``}></input>
+                      <input 
+                        name='AUTHOR_NAME[]' 
+                        placeholder='Имя' 
+                        defaultValue={book ? autorList[key] ? autorList[key].name : `` : ``}
+                      >
+                      </input>
+                      <input 
+                        name='AUTHOR_FAMILY[]' 
+                        placeholder='Фамилия' 
+                        defaultValue={book ? autorList[key] ? autorList[key].family : `` : ``}
+                      >
+                      </input>
                     </div>
                   </li>
                 ))}
@@ -55,24 +64,75 @@ const BookForm = (props) => {
                 <input data-action="removeAuthor" type='button' value='-'></input>
             </div>
           </div>
-          <p>Кол-во страниц: <input defaultValue={book ? book.count : ``} name='COUNT_PAGE' type='number'></input></p>
-          <p>Название издательства: <input defaultValue={book ? book.publishing : ``} name='PUBLISHING' placeholder='ООО "Рога и Копыта"' ></input></p>
-          <p>Год публикации: <input name='AGE'  defaultValue={book ? book.age : ``} type='number'></input></p>
-          <p>Дата выхода в тираж: <input name='DATE' defaultValue={book ? book.date : ``} type='date'></input></p>   
-          <p>ISBN: <input name='ISBN' placeholder='ISBN' defaultValue={book ? book.isbn : ``}></input></p>
-          <button data-action="saveBook">Добавить</button>
+          <p>
+            Кол-во страниц: 
+            <input defaultValue={book ? book.count  : ``} name='COUNT_PAGE' type='number'></input>
+          </p>
+          <p>
+            Название издательства: 
+            <input 
+              defaultValue={book ? book.publishing ? book.publishing : `` : ''} 
+              name='PUBLISHING' 
+              placeholder='ООО "Рога и Копыта"' 
+            >
+            </input>
+          </p>
+          <p>
+            Год публикации: 
+            <input 
+              name='AGE'  
+              defaultValue={book ? book.age ? book.age : `` : ''} 
+              type='number'
+            >
+            </input>
+          </p>
+          <p>Дата выхода в тираж: 
+            <input 
+              name='DATE' 
+              defaultValue={book ? book.date ?  book.date : `` : ''} 
+              type='date'
+            >
+            </input>
+          </p>   
+          <p>
+            ISBN: 
+            <input 
+              name='ISBN' 
+              placeholder='ISBN' 
+              defaultValue={book ? book.isbn ? book.isbn  : `` : ''}  
+            >
+            </input>
+          </p>
+          <button data-action="saveBook">
+            Сохранить
+          </button>
         </form>
         <ReactFileReader fileTypes={[".jpeg",".jpg", ".png"]} base64={true} handleFiles={handleFiles}>
-          <button className="btn">Upload</button>
+          <button className="btn">Загрузить изображение</button>
         </ReactFileReader>
          { img ? 
           <img src={img} />
           :
           null
         } 
+        </section>
       </div>  
     )
 }
+
+BookForm.propTypes = {
+  errors: PropTypes.arrayOf(
+    PropTypes.string
+  ),
+  handleClickForm: PropTypes.func,
+  setCount: PropTypes.func,
+  authorsCount: PropTypes.arrayOf(
+    PropTypes.number
+  ),
+  handleFiles: PropTypes.func,
+  file: PropTypes.string,
+  addBook: PropTypes.func,
+};
 
 
 export default BookForm

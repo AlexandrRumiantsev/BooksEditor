@@ -11,17 +11,19 @@ import {delBook} from "../../store/actions/books/books";
 import BookList from "../book-list/book-list";
 import Sorting from "../sorting/sorting";
 
-const MainScreen = ({books, delBookDispatch, changeFilterDispatch, filter}) => {
+import {bookItem} from "../../shapes/book-item";
+
+const MainScreen = ({books, delBookDispatch, changeFilterDispatch}) => {
 
 
     return  (
       <React.Fragment>
           <header>
             <h1>
-              MainScreen
+              Приложение - Редактор книг
             </h1>
-            <Sorting changeFilter={changeFilterDispatch}/>
-            <Link to={`/add`}> ADD </Link>
+            <div className='book-list__filter'><Sorting changeFilter={changeFilterDispatch}/></div>
+            <Link to={`/add`}> Добавить книгу </Link>
           </header>
           <BookList
             books={books}
@@ -30,6 +32,14 @@ const MainScreen = ({books, delBookDispatch, changeFilterDispatch, filter}) => {
       </React.Fragment>
     )
 }
+
+MainScreen.propTypes = {
+  delBookDispatch: PropTypes.func,
+  changeFilterDispatch: PropTypes.func,
+  books: PropTypes.arrayOf(
+    bookItem
+  )
+};
 
 const mapDispatchToProps = (dispatch) => ({
 
